@@ -1,15 +1,21 @@
 import Logo from "@/components/logo";
+import { Boxes } from "@/components/ui/background-boxes";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full bg-background  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
-      {/* Radial gradient for the container to give a faded look */}
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-      <div className="flex flex-col gap-4">
+    <div className="min-h-screen relative w-full overflow-hidden bg-background flex flex-col items-center justify-center rounded-lg">
+      <div className="absolute inset-0 w-full h-full bg-background z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+
+      <Boxes />
+      <div className={cn("flex flex-col gap-4")}>
         <Logo href="/sign-in" size="5xl" />
-        <h2 className="font-staat text-lg text-muted-foreground">
-          by Tshimega Molefe
-        </h2>
+        <p className={cn("text-lg font-staat relative z-20")}>
+          <span className="text-xs font-mono text-muted-foreground">
+            created by:&nbsp;
+          </span>
+          Tshimega Molefe
+        </p>
       </div>
     </div>
   );

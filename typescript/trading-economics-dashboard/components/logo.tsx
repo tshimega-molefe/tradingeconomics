@@ -25,7 +25,7 @@ const Logo: FC<LogoProps> = ({ size = "7xl", href = "/" }) => {
   return (
     <Link
       href={href}
-      className={`text-primary tracking-tighter uppercase font-staat transition-all duration-75 ease-in-out active:scale-95 cursor-pointer ${textSizeClass}`}
+      className={`text-primary tracking-tighter uppercase font-staat transition-all duration-75 ease-in-out active:scale-95 cursor-pointer relative z-20 ${textSizeClass}`}
     >
       Trading Economics
     </Link>

@@ -1,4 +1,5 @@
 "use client";
+import OverviewCard from "@/components/overview-card";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,16 +26,8 @@ const Navigation: FC<NavigationProps> = ({}) => {
             <span className="sr-only">Toggle notifications</span>
           </Button>
         </div>
-        <div className="flex-1 overflow-auto py-2">
-          <nav className="grid items-start px-4 text-sm font-medium gap-5">
-            <Link
-              className="flex items-center gap-3 rounded-lg bg-secondary px-3 py-2 transition-all hover:bg-accent"
-              href="#"
-            >
-              <House className="h-4 w-4 mr-1" />
-              Home
-            </Link>
-          </nav>
+        <div className="flex-1 overflow-auto p-4">
+          <OverviewCard />
         </div>
         <div className="sticky bottom-0 p-4">
           <Card>

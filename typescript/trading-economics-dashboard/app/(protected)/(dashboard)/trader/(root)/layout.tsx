@@ -1,14 +1,14 @@
 import { auth } from "@/auth";
 
+import { Toaster } from "@/components/ui/sonner";
+import { fetchAllUsers } from "@/data/user";
+import { currentUser } from "@/lib/auth";
 import { fontSans, staat } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
-import Header from "../../_components/header";
-import { Toaster } from "@/components/ui/sonner";
-import { redirect } from "next/navigation";
-import { fetchAllUsers } from "@/data/user";
-import { currentUser } from "@/lib/auth";
 import { SessionProvider } from "next-auth/react";
+import { redirect } from "next/navigation";
+import Header from "../../_components/header";
 
 export async function generateStaticParams() {
   const users = await fetchAllUsers();
@@ -46,7 +46,7 @@ export default async function SupplierRootDashboardLayout({
             staat.variable
           )}
         >
-          <Header id={userId} />
+          <Header />
           <main className="flex h-full w-full items-center justify-center">
             {children}
           </main>

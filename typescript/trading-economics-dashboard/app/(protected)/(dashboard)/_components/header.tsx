@@ -1,20 +1,9 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { FC } from "react";
 
-import { Button } from "@/components/ui/button";
-import { House, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
-import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 import SearchInput from "@/components/search-input";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { House, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 interface HeaderProps {}
 
