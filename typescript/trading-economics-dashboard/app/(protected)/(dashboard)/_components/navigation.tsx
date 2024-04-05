@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Bell, House } from "@phosphor-icons/react";
+import { Bell, FileJsx, House } from "@phosphor-icons/react";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -39,15 +39,18 @@ const Navigation: FC<NavigationProps> = ({}) => {
         <div className="sticky bottom-0 p-4">
           <Card>
             <CardHeader className="pb-4">
-              <CardTitle>Upgrade to Pro</CardTitle>
+              <CardTitle className="flex flex-row items-center">
+                View Example API
+                <FileJsx className="ml-3 w-5 h-5" />
+              </CardTitle>
               <CardDescription>
-                Click the button below to view the api endpoint containing data
-                from Trading Economics
+                Click the button below to view an example of the api endpoint
+                data from Trading Economics for Mexico
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Button className="w-full" size="sm" asChild>
-                <Link href="/api">View API Route</Link>
+                <Link href="/api/search?q=mexico">View API Route</Link>
               </Button>
             </CardContent>
           </Card>
