@@ -9,12 +9,12 @@ export default function Home() {
 
       <Boxes />
       <div className={cn("flex flex-col gap-4")}>
-        <Logo href="/sign-in" size="5xl" />
-        <p className={cn("text-lg font-staat relative z-20")}>
+        <Logo href="/sign-in" size="5xl" className="max-md:text-xl" />
+        <p className={cn("text-xs md:text-sm font-mono relative z-20")}>
           <span className="text-xs font-mono text-muted-foreground">
-            created by:&nbsp;
+            founded:&nbsp;
           </span>
-          Tshimega Molefe
+          2024
         </p>
       </div>
     </div>

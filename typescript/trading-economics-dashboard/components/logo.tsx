@@ -1,9 +1,11 @@
 import { FC } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface LogoProps {
   size?: "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl";
   href?: string;
+  className?: string;
 }
 
 // Define a mapping object for size to Tailwind CSS classes
@@ -19,15 +21,18 @@ const sizeClasses = {
   "9xl": "text-9xl",
 };
 
-const Logo: FC<LogoProps> = ({ size = "7xl", href = "/" }) => {
+const Logo: FC<LogoProps> = ({ size = "7xl", href = "/", className }) => {
   const textSizeClass = sizeClasses[size];
 
   return (
     <Link
       href={href}
-      className={`text-primary tracking-tighter uppercase font-staat transition-all duration-75 ease-in-out active:scale-95 cursor-pointer relative z-20 ${textSizeClass}`}
+      className={cn(
+        `text-primary font-serif transition-all duration-100 ease-in-out active:scale-[0.98855] cursor-pointer relative z-20 ${textSizeClass}`,
+        className
+      )}
     >
-      Trading Economics
+      Leviathan Investments Inc.
     </Link>
   );
 };

@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { FileJsx } from "@phosphor-icons/react/dist/ssr";
-import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import {
   Card,
@@ -20,7 +19,6 @@ import {
 interface OverviewCardProps {}
 
 const OverviewCard: FC<OverviewCardProps> = ({}) => {
-  const searchParams = useSearchParams();
   return (
     <Card>
       <CardHeader className="pb-4">

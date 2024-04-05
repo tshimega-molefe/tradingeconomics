@@ -40,9 +40,6 @@ const SearchInput: FC<SearchInputProps> = () => {
     setSearchQuery(selectedValue);
     const encodedSearchQuery = encodeURI(selectedValue);
 
-    console.log(`Encoded Search Query:`, encodedSearchQuery); // TODO: Remove this
-    toast(`Searching for: ${encodedSearchQuery}`); // TODO: Remove this
-
     startTransition(() => {
       GetSearchResults(encodedSearchQuery).then((data) => {
         if (data) {
@@ -63,7 +60,7 @@ const SearchInput: FC<SearchInputProps> = () => {
         <SelectTrigger className="pl-8 bg-background">
           {isPending ? (
             <div className="flex flex-row items-center">
-              <p className="font-staat">Searching...</p>
+              <p className="font-mono text-xs">Searching...</p>
               <Spinner className="animate-spin w-4 h-4 ml-1" />
             </div>
           ) : (
