@@ -2,8 +2,6 @@ import {
   PERMITTED_COUNTRIES,
   PERMITTED_SYMBOLS,
 } from "@/config/permitted-trading-economics-api-datapoints";
-import { CountryData } from "@/types/country-data";
-import { FinancialData } from "@/types/financial-data";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 

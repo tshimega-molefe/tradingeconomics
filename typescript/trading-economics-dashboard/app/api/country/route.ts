@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const category = searchParams.get("category") || "gdp";
+  const category = searchParams.get("category") || "money";
   const encodedCategory = encodeURIComponent(category);
   const url = `https://api.tradingeconomics.com/country/${encodedQuery}?c=${apiKey}&group=${encodedCategory}`;
 

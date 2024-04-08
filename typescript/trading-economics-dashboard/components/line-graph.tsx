@@ -3,282 +3,26 @@ import { FC } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 import { ResponsiveLine } from "@nivo/line";
+import { useSearchResult } from "@/hooks/use-search-result";
+import { Spinner } from "@phosphor-icons/react";
+import { FinancialData } from "@/types/financial-data";
+import { transformFinancialData } from "@/lib/utils/transform-financial-data";
 
 interface LineGraphProps {}
 
 const LineGraph: FC<LineGraphProps> = ({}) => {
-  const mockData = [
-    {
-      id: "japan",
-      color: "hsl(317, 70%, 50%)",
-      data: [
-        {
-          x: "plane",
-          y: 279,
-        },
-        {
-          x: "helicopter",
-          y: 197,
-        },
-        {
-          x: "boat",
-          y: 121,
-        },
-        {
-          x: "train",
-          y: 107,
-        },
-        {
-          x: "subway",
-          y: 15,
-        },
-        {
-          x: "bus",
-          y: 91,
-        },
-        {
-          x: "car",
-          y: 166,
-        },
-        {
-          x: "moto",
-          y: 111,
-        },
-        {
-          x: "bicycle",
-          y: 18,
-        },
-        {
-          x: "horse",
-          y: 45,
-        },
-        {
-          x: "skateboard",
-          y: 183,
-        },
-        {
-          x: "others",
-          y: 294,
-        },
-      ],
-    },
-    {
-      id: "france",
-      color: "hsl(268, 70%, 50%)",
-      data: [
-        {
-          x: "plane",
-          y: 218,
-        },
-        {
-          x: "helicopter",
-          y: 194,
-        },
-        {
-          x: "boat",
-          y: 124,
-        },
-        {
-          x: "train",
-          y: 268,
-        },
-        {
-          x: "subway",
-          y: 8,
-        },
-        {
-          x: "bus",
-          y: 36,
-        },
-        {
-          x: "car",
-          y: 25,
-        },
-        {
-          x: "moto",
-          y: 151,
-        },
-        {
-          x: "bicycle",
-          y: 218,
-        },
-        {
-          x: "horse",
-          y: 161,
-        },
-        {
-          x: "skateboard",
-          y: 65,
-        },
-        {
-          x: "others",
-          y: 57,
-        },
-      ],
-    },
-    {
-      id: "us",
-      color: "hsl(208, 70%, 50%)",
-      data: [
-        {
-          x: "plane",
-          y: 131,
-        },
-        {
-          x: "helicopter",
-          y: 248,
-        },
-        {
-          x: "boat",
-          y: 241,
-        },
-        {
-          x: "train",
-          y: 201,
-        },
-        {
-          x: "subway",
-          y: 25,
-        },
-        {
-          x: "bus",
-          y: 37,
-        },
-        {
-          x: "car",
-          y: 52,
-        },
-        {
-          x: "moto",
-          y: 234,
-        },
-        {
-          x: "bicycle",
-          y: 99,
-        },
-        {
-          x: "horse",
-          y: 10,
-        },
-        {
-          x: "skateboard",
-          y: 176,
-        },
-        {
-          x: "others",
-          y: 50,
-        },
-      ],
-    },
-    {
-      id: "germany",
-      color: "hsl(196, 70%, 50%)",
-      data: [
-        {
-          x: "plane",
-          y: 199,
-        },
-        {
-          x: "helicopter",
-          y: 33,
-        },
-        {
-          x: "boat",
-          y: 238,
-        },
-        {
-          x: "train",
-          y: 43,
-        },
-        {
-          x: "subway",
-          y: 94,
-        },
-        {
-          x: "bus",
-          y: 85,
-        },
-        {
-          x: "car",
-          y: 159,
-        },
-        {
-          x: "moto",
-          y: 29,
-        },
-        {
-          x: "bicycle",
-          y: 165,
-        },
-        {
-          x: "horse",
-          y: 164,
-        },
-        {
-          x: "skateboard",
-          y: 283,
-        },
-        {
-          x: "others",
-          y: 23,
-        },
-      ],
-    },
-    {
-      id: "norway",
-      color: "hsl(203, 70%, 50%)",
-      data: [
-        {
-          x: "plane",
-          y: 34,
-        },
-        {
-          x: "helicopter",
-          y: 192,
-        },
-        {
-          x: "boat",
-          y: 40,
-        },
-        {
-          x: "train",
-          y: 147,
-        },
-        {
-          x: "subway",
-          y: 59,
-        },
-        {
-          x: "bus",
-          y: 188,
-        },
-        {
-          x: "car",
-          y: 219,
-        },
-        {
-          x: "moto",
-          y: 149,
-        },
-        {
-          x: "bicycle",
-          y: 151,
-        },
-        {
-          x: "horse",
-          y: 97,
-        },
-        {
-          x: "skateboard",
-          y: 22,
-        },
-        {
-          x: "others",
-          y: 158,
-        },
-      ],
-    },
-  ];
+  const { data, isLoading, isError } = useSearchResult();
+  if (isLoading) {
+    return <Spinner className="animate-spin" />;
+  }
+
+  if (isError || !data) {
+    return <div>Error loading data</div>;
+  }
+
+  const financialData = data as FinancialData[];
+
+  const transformedData = transformFinancialData(financialData);
 
   return (
     <Card className="md:row-span-1 xl:col-span-3 lg:col-span-4 lg:row-span-3 md:col-span-4 xl:row-span-1">
@@ -287,8 +31,8 @@ const LineGraph: FC<LineGraphProps> = ({}) => {
       </CardHeader>
       <CardContent className="xl:h-[320px]">
         <ResponsiveLine
-          data={mockData}
-          margin={{ top: 10, right: 90, bottom: 45, left: 50 }}
+          data={transformedData}
+          margin={{ top: 10, right: 100, bottom: 45, left: 70 }}
           xScale={{ type: "point" }}
           yScale={{
             type: "linear",
@@ -304,21 +48,21 @@ const LineGraph: FC<LineGraphProps> = ({}) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "transportation",
+            legend: "Quarter ended:",
             legendOffset: 36,
             legendPosition: "middle",
             truncateTickAt: 0,
           }}
           axisLeft={{
-            tickSize: 5,
+            tickSize: 2,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "count",
-            legendOffset: -40,
+            legend: "$USD in Millions",
+            legendOffset: -60,
             legendPosition: "middle",
             truncateTickAt: 0,
           }}
-          pointSize={10}
+          pointSize={5}
           pointColor={{ theme: "background" }}
           pointBorderWidth={2}
           pointBorderColor={{ from: "serieColor" }}
@@ -345,7 +89,7 @@ const LineGraph: FC<LineGraphProps> = ({}) => {
                   on: "hover",
                   style: {
                     itemBackground: "rgba(0, 0, 0, .03)",
-                    itemOpacity: 1,
+                    itemOpacity: 0.1,
                   },
                 },
               ],

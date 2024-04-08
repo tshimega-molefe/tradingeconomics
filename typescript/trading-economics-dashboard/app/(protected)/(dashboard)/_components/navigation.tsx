@@ -20,7 +20,7 @@ interface NavigationProps {}
 
 const Navigation: FC<NavigationProps> = () => {
   const { searchQuery, clearSearchQuery } = useSearchStore();
-  const { data, isLoading, isError } = useSearchResult();
+  const { isLoading } = useSearchResult();
 
   return (
     <div className="hidden border-r bg-background/80 lg:block">
