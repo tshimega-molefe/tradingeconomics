@@ -13,9 +13,9 @@ import { AuthError } from "next-auth";
 import {
   generateVerificationToken,
   generateTwoFactorToken,
-} from "../../lib/tokens";
-import { sendVerificationEmail, sendTwoFactorTokenEmail } from "../../lib/mail";
-import { db } from "../../lib/db";
+} from "../../lib/utils/tokens";
+import { sendVerificationEmail, sendTwoFactorTokenEmail } from "../../lib/utils/mail";
+import { db } from "../../lib/utils/db";
 import { getTwoFactorConfirmationByUserID } from "../../data/two-factor-confirmation";
 
 export async function SignIn({

@@ -1,4 +1,4 @@
-import { db } from "../lib/db";
+import { db } from "../lib/utils/db";
 
 export const getTwoFactorConfirmationByUserID = async (userId: string) => {
   try {

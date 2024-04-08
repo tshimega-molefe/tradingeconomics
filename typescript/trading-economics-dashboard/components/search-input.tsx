@@ -1,8 +1,7 @@
 "use client";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FC, useCallback, useState, useTransition } from "react";
+import { FC, useEffect, useState } from "react";
+import { useSearchStore } from "@/store/use-search-store";
 
-import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -14,54 +13,35 @@ import {
   PERMITTED_COUNTRIES,
   PERMITTED_SYMBOLS,
 } from "@/config/permitted-trading-economics-api-datapoints";
-import { GetSearchResults } from "@/server/actions/get-search-results";
+import { useSearchResult } from "@/hooks/use-search-result";
 import { Spinner } from "@phosphor-icons/react";
 
 interface SearchInputProps {}
 
 const SearchInput: FC<SearchInputProps> = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isPending, startTransition] = useTransition();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
+  const { searchQuery, setSearchQuery } = useSearchStore();
+  const { isLoading } = useSearchResult();
+  const [localSearchQuery, setLocalSearchQuery] = useState<string | undefined>(
+    searchQuery
   );
 
-  const onSearch = async (selectedValue: string) => {
-    setSearchQuery(selectedValue);
-    const encodedSearchQuery = encodeURI(selectedValue);
+  // Sync local state with global state
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery);
+  }, [searchQuery]);
 
-    startTransition(() => {
-      GetSearchResults(encodedSearchQuery).then((data) => {
-        if (data) {
-          router.push(
-            pathname + "?" + createQueryString("q", encodedSearchQuery)
-          );
-        }
-        if (!data) {
-          router.refresh();
-        }
-      });
-    });
+  const onSearch = (selectedValue: string) => {
+    setSearchQuery(selectedValue);
   };
 
   return (
     <div className="flex flex-col gap-5 w-full md:w-2/3 lg:w-1/3">
-      <Select onValueChange={onSearch} defaultValue={searchQuery}>
+      <Select onValueChange={onSearch} value={localSearchQuery}>
         <SelectTrigger className="pl-8 bg-background">
-          {isPending ? (
-            <div className="flex flex-row items-center">
-              <p className="font-mono text-xs">Searching...</p>
-              <Spinner className="animate-spin w-4 h-4 ml-1" />
+          {isLoading ? (
+            <div className="items-center flex flex-row">
+              <p className="text-sm">Fetching your results...</p>
+              <Spinner className="w-4 h-4 animate-spin ml-2" />
             </div>
           ) : (
             <SelectValue placeholder="Select a country or symbol" />

@@ -1,6 +1,6 @@
-import ConfirmationEmail from "../emails/confirmation-email";
-import ResetPasswordEmail from "../emails/reset-password-email";
-import TwoFactorEmail from "../emails/two-factor-email";
+import ConfirmationEmail from "@/emails/confirmation-email";
+import ResetPasswordEmail from "@/emails/reset-password-email";
+import TwoFactorEmail from "@/emails/two-factor-email";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);

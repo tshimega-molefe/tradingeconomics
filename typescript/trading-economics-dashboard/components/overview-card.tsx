@@ -1,3 +1,13 @@
+"use client";
+import { FC, useState, useEffect } from "react";
+import { useSearchResult } from "@/hooks/use-search-result";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import {
   Table,
   TableBody,
@@ -6,92 +16,57 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FileJsx } from "@phosphor-icons/react/dist/ssr";
-import { FC } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Spinner } from "@phosphor-icons/react";
+import CountryDataTable from "./country-data-table";
+import FinancialDataTable from "./financial-data-table";
+import { FinancialData } from "@/types/financial-data";
+import { CountryData } from "@/types/country-data";
 
 interface OverviewCardProps {}
 
-const OverviewCard: FC<OverviewCardProps> = ({}) => {
+const OverviewCard: FC<OverviewCardProps> = () => {
+  const { data, isLoading, isError } = useSearchResult();
+  const [dataType, setDataType] = useState<"country" | "financial" | "unknown">(
+    "unknown"
+  );
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setDataType("Country" in data[0] ? "country" : "financial");
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <Spinner className="animate-spin w-4 h-4" />; // TODO: Create a loading skeleton
+  }
+
+  if (isError || !data) {
+    return <div>Error loading data</div>; // TODO: Create an error state for failed error loading
+  }
+
+  const financialData = data as FinancialData[];
+  const countryData = data as CountryData[];
+
   return (
     <Card>
       <CardHeader className="pb-4">
         <CardTitle className="flex flex-row items-center text-2xl">
-          Stock Quarterly Results
-          <FileJsx className="ml-3 w-5 h-5" />
+          {dataType === "financial" ? (
+            <h2 className="text-2xl font-bold uppercase">
+              {financialData[0].stock}
+            </h2>
+          ) : (
+            <h2 className="text-2xl font-semibold capitalize">
+              {countryData[0].Country}
+            </h2>
+          )}
         </CardTitle>
-        <CardDescription>Frequency and Currency</CardDescription>
+        <CardDescription>
+          {dataType === "country" ? "Geographic Summary" : "Financial Summary"}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>AAPL</TableHead>
-              <TableHead>Prev Close</TableHead>
-              <TableHead>Open</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead>USD</TableHead>
-              <TableHead>Date 2</TableHead>
-              <TableHead>Date</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">assets</TableCell>
-              <TableCell className="text-green-500 font-semibold">
-                125.90
-              </TableCell>
-              <TableCell className="text-red-500 font-semibold">
-                122.15
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">
-                cash-and-equivalents
-              </TableCell>
-              <TableCell className="text-green-500 font-semibold">
-                2765.00
-              </TableCell>
-              <TableCell className="text-red-500 font-semibold">
-                2745.00
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">TSLA</TableCell>
-              <TableCell className="text-red-500 font-semibold">
-                750.00
-              </TableCell>
-              <TableCell className="text-green-500 font-semibold">
-                780.00
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">AMZN</TableCell>
-              <TableCell className="text-green-500 font-semibold">
-                3275.00
-              </TableCell>
-              <TableCell className="text-red-500 font-semibold">
-                3250.00
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">MSFT</TableCell>
-              <TableCell className="text-green-500 font-semibold">
-                245.00
-              </TableCell>
-              <TableCell className="text-red-500 font-semibold">
-                240.00
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        {dataType === "country" ? <CountryDataTable /> : <FinancialDataTable />}
       </CardContent>
     </Card>
   );

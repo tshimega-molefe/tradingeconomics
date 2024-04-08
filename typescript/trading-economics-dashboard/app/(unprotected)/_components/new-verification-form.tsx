@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { newVerification } from "@/server/actions/new-verification";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

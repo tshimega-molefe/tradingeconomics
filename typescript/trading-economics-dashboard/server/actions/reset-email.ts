@@ -1,8 +1,8 @@
 "use server";
 
 import { getUserByEmail } from "../../data/user";
-import { sendResetPasswordEmail } from "../../lib/mail";
-import { generateResetPasswordToken } from "../../lib/tokens";
+import { sendResetPasswordEmail } from "../../lib/utils/mail";
+import { generateResetPasswordToken } from "../../lib/utils/tokens";
 import {
   ResetPasswordSchema,
   TResetPasswordValidator,

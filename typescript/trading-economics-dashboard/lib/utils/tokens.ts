@@ -1,6 +1,6 @@
-import { getTwoFactorTokenByEmail } from "../data/two-factor-token";
-import { getResetPasswordTokenByEmail } from "../data/reset-password-token";
-import { getVerificationByEmail } from "../data/verification-token";
+import { getTwoFactorTokenByEmail } from "../../data/two-factor-token";
+import { getResetPasswordTokenByEmail } from "../../data/reset-password-token";
+import { getVerificationByEmail } from "../../data/verification-token";
 import { db } from "./db";
 import { v4 as uuidv4 } from "uuid";
 import crypto from "crypto";

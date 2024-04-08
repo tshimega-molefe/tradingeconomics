@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 
 import { Spinner } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
-import { cn, getErrorMessage } from "@/lib/utils";
+import { cn, getErrorMessage } from "@/lib/utils/utils";
 import { Icons } from "@/components/icons";
 
 interface ProviderButtonProps extends React.HtmlHTMLAttributes<HTMLDivElement> {

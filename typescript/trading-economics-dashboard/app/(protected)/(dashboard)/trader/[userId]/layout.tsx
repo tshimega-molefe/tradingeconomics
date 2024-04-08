@@ -2,16 +2,17 @@ import "@/styles/globals.css";
 
 import { redirect } from "next/navigation";
 
-import { SessionProvider } from "next-auth/react";
-import { ThemeProvider } from "@/components/theme-provider";
 import { auth } from "@/auth";
-import { currentUser } from "@/lib/auth";
-import { cn } from "@/lib/utils";
-import { fontSans, staat } from "@/lib/fonts";
+import QueryProvider from "@/components/query-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { fetchAllUsers } from "@/data/user";
-import Navigation from "../../_components/navigation";
+import { currentUser } from "@/lib/utils/auth";
+import { fontSans, staat } from "@/lib/utils/fonts";
+import { cn } from "@/lib/utils/utils";
+import { SessionProvider } from "next-auth/react";
 import Header from "../../_components/header";
+import Navigation from "../../_components/navigation";
 
 export async function generateStaticParams() {
   const users = await fetchAllUsers();
@@ -59,13 +60,15 @@ export default async function TraderDashboardLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navigation />
-            <div className="flex flex-col">
-              <Header />
-              <main className="flex flex-1 p-4 md:p-6">{children}</main>
-            </div>
+            <QueryProvider>
+              <Navigation />
+              <div className="flex flex-col">
+                <Header />
+                <main className="flex flex-1 p-4 md:p-6">{children}</main>
+              </div>
 
-            <Toaster />
+              <Toaster />
+            </QueryProvider>
           </ThemeProvider>
         </body>
       </html>

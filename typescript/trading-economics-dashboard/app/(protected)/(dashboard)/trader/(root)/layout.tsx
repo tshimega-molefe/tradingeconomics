@@ -2,9 +2,9 @@ import { auth } from "@/auth";
 
 import { Toaster } from "@/components/ui/sonner";
 import { fetchAllUsers } from "@/data/user";
-import { currentUser } from "@/lib/auth";
-import { fontSans, staat } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
+import { currentUser } from "@/lib/utils/auth";
+import { fontSans, staat } from "@/lib/utils/fonts";
+import { cn } from "@/lib/utils/utils";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { redirect } from "next/navigation";

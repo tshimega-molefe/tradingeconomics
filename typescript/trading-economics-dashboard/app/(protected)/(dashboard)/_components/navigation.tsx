@@ -9,25 +9,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useSearchStore } from "@/store/use-search-store";
 
-import { useRouter, useSearchParams } from "next/navigation";
-
-import { ArrowClockwise, LockLaminated, Spinner } from "@phosphor-icons/react";
+import { useSearchResult } from "@/hooks/use-search-result";
+import { ChatsTeardrop, LockLaminated, Spinner } from "@phosphor-icons/react";
 import Link from "next/link";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 interface NavigationProps {}
 
-const Navigation: FC<NavigationProps> = ({}) => {
-  const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter();
-  const inputSearchParams = searchParams.get("q");
-
-  const onRefresh = () => {
-    setIsLoading(true);
-    router.push("/trader");
-  };
+const Navigation: FC<NavigationProps> = () => {
+  const { searchQuery, clearSearchQuery } = useSearchStore();
+  const { data, isLoading, isError } = useSearchResult();
 
   return (
     <div className="hidden border-r bg-background/80 lg:block">
@@ -38,22 +31,27 @@ const Navigation: FC<NavigationProps> = ({}) => {
             className="ml-auto h-8 w-8"
             size="icon"
             variant="outline"
-            onClick={onRefresh}
+            onClick={() => clearSearchQuery()}
             disabled={isLoading}
           >
             {isLoading ? (
               <Spinner className="w-4 h-4 animate-spin" />
             ) : (
               <>
-                <ArrowClockwise className="h-4 w-4" />
-                <span className="sr-only">Refresh Page</span>
+                <ChatsTeardrop className="h-4 w-4" />
+                <span className="sr-only">Chat with Leviathan</span>
               </>
             )}
           </Button>
         </div>
         <div className="flex-1 p-4">
-          {inputSearchParams && <OverviewCard />}
-          {!inputSearchParams && <div>AI Tabs</div>}
+          {searchQuery &&
+            (isLoading ? (
+              <Spinner className="animate-spin w-4 h-4" />
+            ) : (
+              <OverviewCard />
+            ))}
+          {!searchQuery && <div>AI Tabs</div>}
         </div>
         <div className="sticky bottom-2 p-4">
           <Card>
@@ -63,8 +61,12 @@ const Navigation: FC<NavigationProps> = ({}) => {
                 <LockLaminated className="ml-3 w-5 h-5" />
               </CardTitle>
               <CardDescription>
-                Trading Economics is free to use until April 30th, 2024, after
-                which this will become a paid service.
+                Our Trading Economics subdomain is free to use until May 22nd,
+                2024.
+                <br />
+                <br />
+                Subscribing now gives you a 50% discount on your first 365 days
+                of use.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -73,7 +75,7 @@ const Navigation: FC<NavigationProps> = ({}) => {
                   href="https://instagram.com/tshimegamolefe"
                   target="_blank"
                 >
-                  Extend Free Access
+                  Subscribe Now
                 </Link>
               </Button>
             </CardContent>

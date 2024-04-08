@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import "next-auth/jwt";
 
 import { getUserById } from "./data/user";
-import { db } from "./lib/db";
+import { db } from "./lib/utils/db";
 
 import { getTwoFactorConfirmationByUserID } from "./data/two-factor-confirmation";
 

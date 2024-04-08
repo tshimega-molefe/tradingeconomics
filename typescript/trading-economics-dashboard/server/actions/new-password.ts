@@ -2,7 +2,7 @@
 
 import { getResetPasswordTokenByToken } from "@/data/reset-password-token";
 import { getUserByEmail } from "@/data/user";
-import { db } from "@/lib/db";
+import { db } from "@/lib/utils/db";
 import {
   NewPasswordSchema,
   TNewPasswordValidator,

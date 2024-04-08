@@ -7,9 +7,9 @@ import {
   TAuthCredentialsValidator,
 } from "../../lib/validators/account-credentials-validator";
 
-import { db } from "@/lib/db";
-import { generateVerificationToken } from "@/lib/tokens";
-import { sendVerificationEmail } from "@/lib/mail";
+import { db } from "@/lib/utils/db";
+import { generateVerificationToken } from "@/lib/utils/tokens";
+import { sendVerificationEmail } from "@/lib/utils/mail";
 import { getUserByEmail } from "@/data/user";
 
 export async function CreateAccount({

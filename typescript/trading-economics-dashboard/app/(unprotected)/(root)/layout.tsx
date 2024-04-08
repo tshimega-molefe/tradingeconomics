@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
-import { fontSans, staat } from "@/lib/fonts";
+import { cn } from "@/lib/utils/utils";
+import { fontSans, staat } from "@/lib/utils/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {

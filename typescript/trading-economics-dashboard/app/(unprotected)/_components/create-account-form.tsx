@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import {
   AuthCredentialsSchema,
   TAuthCredentialsValidator,
