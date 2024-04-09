@@ -1,3 +1,4 @@
+"use server";
 import { ContentResult, SearchResult } from "@/types/ai-search";
 import cheerio from "cheerio";
 export async function getSources(message: string): Promise<SearchResult[]> {
@@ -13,7 +14,7 @@ export async function getSources(message: string): Promise<SearchResult[]> {
     });
     if (!response.ok) {
       throw new Error(
-        `HTTP Error! Failed to fetch search results: ${response.statusText}`
+        `HTTP Error! Failed to fetch search results: ${response.status}`
       );
     }
 
