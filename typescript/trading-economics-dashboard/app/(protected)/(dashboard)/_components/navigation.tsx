@@ -15,6 +15,7 @@ import { useSearchResult } from "@/hooks/use-search-result";
 import { ChatsTeardrop, LockLaminated, Spinner } from "@phosphor-icons/react";
 import Link from "next/link";
 import { FC } from "react";
+import { signOut } from "next-auth/react";
 
 interface NavigationProps {}
 
@@ -63,20 +64,16 @@ const Navigation: FC<NavigationProps> = () => {
               <CardDescription>
                 Our Trading Economics subdomain is free to use until May 22nd,
                 2024.
-                <br />
-                <br />
-                Subscribing now gives you a 50% discount on your first 365 days
-                of use.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full text-base" size="lg" asChild>
-                <Link
-                  href="https://instagram.com/tshimegamolefe"
-                  target="_blank"
-                >
-                  Subscribe Now
-                </Link>
+              <Button
+                className="w-full text-base"
+                size="lg"
+                variant="destructive"
+                onClick={() => signOut()}
+              >
+                Sign Out
               </Button>
             </CardContent>
           </Card>

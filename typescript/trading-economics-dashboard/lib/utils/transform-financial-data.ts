@@ -26,21 +26,36 @@ function formatDate(dateStr: string): string {
   return `${day}/${month}/${year}`;
 }
 
+function formatValue(value: number): number {
+  return value / 1_000_000;
+}
+
 export const transformFinancialData = (
   financialData: FinancialData[]
 ): TransformedFinancialData[] => {
-  const selectedIds = ["ebit", "ebitda", "assets", "cash-and-cash-equivalents"];
+  const selectedIds = [
+    "ebit",
+    "ebitda",
+    "assets",
+    "current-assets",
+    "cash-and-cash-equivalents",
+    "cost-of-sales",
+  ];
 
   return financialData
-    .filter((fd) => selectedIds.includes(fd.financialSymbol.toLowerCase()))
+    .filter(
+      (fd) =>
+        fd.financialSymbol &&
+        selectedIds.includes(fd.financialSymbol.toLowerCase())
+    )
     .map((fd) => ({
       id: fd.financialSymbol,
       color: getRandomGray(),
       data: [
-        { x: formatDate(fd.date4), y: fd.value4 },
-        { x: formatDate(fd.date3), y: fd.value3 },
-        { x: formatDate(fd.date2), y: fd.value2 },
-        { x: formatDate(fd.date1), y: fd.value1 },
+        { x: formatDate(fd.date4), y: formatValue(fd.value4) },
+        { x: formatDate(fd.date3), y: formatValue(fd.value3) },
+        { x: formatDate(fd.date2), y: formatValue(fd.value2) },
+        { x: formatDate(fd.date1), y: formatValue(fd.value1) },
       ],
     }));
 };
