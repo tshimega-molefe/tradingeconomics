@@ -4,7 +4,7 @@ import Google from "next-auth/providers/google";
 
 import { getUserByEmail } from "./data/user";
 import { AuthCredentialsSchema } from "./lib/validators/account-credentials-validator";
-import bcrpyt from "bcrypt";
+import bcrpytjs from "bcryptjs";
 
 export default {
   providers: [
@@ -28,7 +28,7 @@ export default {
           const user = await getUserByEmail(validatedEmail);
           if (!user || !user.password) return null;
 
-          const isValidPassword = await bcrpyt.compare(
+          const isValidPassword = await bcrpytjs.compare(
             validatedPassword,
             user.password
           );
