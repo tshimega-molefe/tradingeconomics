@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "../../../lib/utils/utils";
+import { cn } from "@/lib/utils/utils";
 import Link from "next/link";
 
 import { Button, buttonVariants } from "../../../components/ui/button";
@@ -12,8 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-import FormError from "../../../components/form-error";
-import FormSuccess from "../../../components/form-success";
 import {
   Form,
   FormControl,
@@ -40,6 +38,8 @@ import {
 
 import { Loader2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
+import FormError from "@/components/form-error";
+import FormSuccess from "@/components/form-success";
 
 export default function SignInForm() {
   const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false);

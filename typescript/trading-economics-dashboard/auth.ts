@@ -2,8 +2,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 
-import { getUserById } from "./data/user";
-import { db } from "./lib/utils/db";
+import { getUserById } from "@/data/user";
+import { db } from "@/lib/utils/db";
 
 import { getTwoFactorConfirmationByUserID } from "./data/two-factor-confirmation";
 
