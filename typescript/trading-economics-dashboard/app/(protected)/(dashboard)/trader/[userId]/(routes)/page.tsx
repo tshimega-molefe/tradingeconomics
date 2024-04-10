@@ -5,7 +5,7 @@ import { FC } from "react";
 import Footer from "@/components/footer";
 import LineGraph from "@/components/line-graph";
 import { useSearchResult } from "@/hooks/use-search-result";
-import AIFeedPage from "@/components/ai/ai-feed";
+// import AIFeedPage from "@/components/ai/ai-feed";
 import AI from "@/components/ai";
 
 const DashboardHomePage: FC = () => {

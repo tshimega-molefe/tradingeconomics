@@ -104,7 +104,7 @@ const ImagesComponent: React.FC<ImagesComponentProps> = ({ images }) => {
           onClick={handleCloseModal}
         >
           <div className="max-w-5xl max-h-full">
-            <img
+            <Image
               src={selectedImage}
               alt="Full size"
               className="max-w-full max-h-full"

@@ -18,7 +18,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function SupplierRootDashboardLayout({
+export default async function TraderRootDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
