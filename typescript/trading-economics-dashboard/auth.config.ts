@@ -1,10 +1,10 @@
-import bcrpytjs from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
 import { getUserByEmail } from "./data/user";
 import { AuthCredentialsSchema } from "./lib/validators/account-credentials-validator";
+import bcrpyt from "bcrypt";
 
 export default {
   providers: [
@@ -28,7 +28,7 @@ export default {
           const user = await getUserByEmail(validatedEmail);
           if (!user || !user.password) return null;
 
-          const isValidPassword = await bcrpytjs.compare(
+          const isValidPassword = await bcrpyt.compare(
             validatedPassword,
             user.password
           );
