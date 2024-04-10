@@ -1,14 +1,12 @@
 "use client";
-import { FC } from "react";
 import { useSearchStore } from "@/store/use-search-store";
+import { FC } from "react";
 
-import AI from "@/components/ai";
-import DataTable from "@/components/data-table";
 import Footer from "@/components/footer";
-import HighlightCards from "@/components/highlight-cards";
 import LineGraph from "@/components/line-graph";
-import PieChart from "@/components/pie-chart";
 import { useSearchResult } from "@/hooks/use-search-result";
+import AIFeedPage from "@/components/ai/ai-feed";
+import AI from "@/components/ai";
 
 const DashboardHomePage: FC = () => {
   const { searchQuery } = useSearchStore();
@@ -17,6 +15,8 @@ const DashboardHomePage: FC = () => {
   if (!searchQuery) {
     return (
       <div className="flex flex-col gap-2 w-full">
+        {/* <AIFeedPage /> */}
+
         <AI />
         <Footer />
       </div>
