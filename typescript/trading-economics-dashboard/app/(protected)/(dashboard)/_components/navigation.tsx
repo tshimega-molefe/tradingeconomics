@@ -13,9 +13,8 @@ import { useSearchStore } from "@/store/use-search-store";
 
 import { useSearchResult } from "@/hooks/use-search-result";
 import { ChatsTeardrop, LockLaminated, Spinner } from "@phosphor-icons/react";
-import Link from "next/link";
-import { FC } from "react";
 import { signOut } from "next-auth/react";
+import { FC } from "react";
 
 interface NavigationProps {}
 

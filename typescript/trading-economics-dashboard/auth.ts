@@ -2,12 +2,22 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 
+import bcryptjs from "bcryptjs";
+
+import type { NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+
+import { getUserByEmail } from "./data/user";
+import { AuthCredentialsSchema } from "./lib/validators/account-credentials-validator";
+
 import { getUserById } from "@/data/user";
 import { db } from "@/lib/utils/db";
 
+import authConfig from "./auth.config";
 import { getTwoFactorConfirmationByUserID } from "./data/two-factor-confirmation";
 
-import authConfig from "./auth.config";
+// import authConfig from "./auth.config";
 declare module "next-auth" {
   /**
    * Returned by `useSession`, `auth`, contains information about the active session.
@@ -33,6 +43,39 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  ...authConfig,
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    Credentials({
+      name: "Credentials",
+      credentials: {
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
+      },
+      async authorize(credentials) {
+        const validatedFields = AuthCredentialsSchema.safeParse(credentials);
+
+        if (validatedFields.success) {
+          const { email: validatedEmail, password: validatedPassword } =
+            validatedFields.data;
+
+          const user = await getUserByEmail(validatedEmail);
+          if (!user || !user.password) return null;
+
+          const isValidPassword = await bcryptjs.compare(
+            validatedPassword,
+            user.password
+          );
+
+          if (isValidPassword) return user;
+        }
+        return null;
+      },
+    }),
+  ],
   events: {
     async linkAccount({ user }) {
       await db.user.update({
@@ -101,10 +144,4 @@ export const {
   },
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/sign-in",
-    signOut: "/sign-out",
-    error: "/error",
-  },
-  ...authConfig,
 });
